@@ -1,13 +1,27 @@
-import { useRef, useState } from 'react'
-import video from"./Components/videos/mov_bbb.mp4"
-import NewComponent from "./Components/NewComponent"
+import { useRef, useState } from 'react';
+import video from "./Components/videos/mov_bbb.mp4";
+import imgBlack from "./assets/images/color-black-white-photo10.avif";
+import imgColor from "./assets/images/color-black-white-photo14.avif";
+import NewComponent from "./Components/NewComponent";
 function App() {
   const videoRun = useRef(null);
+  const imgREF = useRef(null);
+
+  function imgToColor() {
+    console.log(imgREF.current);
+    imgREF.current.src=imgColor;
+  }
+
+  function imgToBlack() {
+    console.log(imgREF.current);
+    imgREF.current.src=imgBlack;
+  }
 
   function handlePlay() {
     console.log(videoRun);
     videoRun.current.play();
   }
+
   function handlePause() {
     videoRun.current.pause();
   }
@@ -39,9 +53,12 @@ function App() {
         <video ref={videoRun} src={video} controls autoPlay>
           {/* <source  type="video/mp4"/> */}
         </video>
+        <button onClick={handlePlay}>play</button>
+        <button onClick={handlePause}>pause</button>
       </div>
-      <button onClick={handlePlay}>play</button>
-      <button onClick={handlePause}>pause</button>
+      <div>
+        <img width={"200px"} onMouseOver={imgToColor} onMouseLeave={imgToBlack} ref={imgREF} src={imgBlack} alt="" />
+      </div>
     </div>
   )
 }
